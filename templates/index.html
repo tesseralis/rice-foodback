@@ -1,16 +1,72 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Rate Servery Food</title>
-  </head>
-  <body>
-    <p>Rate these servery items!</p>
-    <ul class=entries>
-    {% for entry in entries %}
-      <li><h2>{{ entry.title }}</h2></li>
-    {% endfor %}
-    </ul>
+<link rel='stylesheet' href='{{url_for('static', filename='index.css')}}' />
 
-  </body>
-</html>
+<div class='navbar'>
+    <div class='container'>
+        <a href='#'>Foodback</a>
 
+        <div class='pull-right'>
+            <a href='#'>Login</a>
+        </div>
+    </div>
+</div>
+
+<div class='container'>
+    <div class='title'>
+        Foodback that shit
+    </div>
+    <div class='subtitle'>
+        Let the servery know what sucks.
+    </div>
+</div>
+
+<!-- Pick a servery -->
+<div class='container sectional'>
+
+    <div class='servery-image north'>
+        <a href='#'>
+            <div>
+                North
+            </div>
+        </a>
+    </div>
+    <div class='servery-image east'>
+        <a href='#'>
+            <div>
+                East
+            </div>
+        </a>
+    </div>
+    <div class='servery-image west'>
+        <a href='#'>
+            <div>
+                West
+            </div>
+        </a>
+    </div>
+    <div class='servery-image baker'>
+        <a href='#'>
+            <div>
+                Baker
+            </div>
+        </a>
+    </div>
+    <div class='servery-image south'>
+        <a href='#'>
+            <div>
+                South
+            </div>
+        </a>
+    </div>
+    <div class='servery-image sid'>
+        <a href='#'>
+            <div>
+                Sid
+            </div>
+        </a>
+    </div>
+    <br class='clearfix'>
+</div>
+
+<div class='container footer sectional'>
+    Made at <a href='http://hack.rice.edu'>hack.rice</a> 2013
+</div>

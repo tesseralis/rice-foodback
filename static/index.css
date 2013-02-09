@@ -1,0 +1,115 @@
+body {
+    background: #fff;
+    font-family: "Georgia", sans-serif;
+    font-size: 16px;
+    padding-top: 100px;
+}
+
+a {
+    color: #333;
+    border-bottom: 1px solid #aaa;
+    text-decoration: none;
+}
+
+.container {
+    width: 610px;
+    margin: auto;
+}
+
+.sectional {
+    margin-top: 30px;
+    padding-top: 30px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
+    background: #333;
+    color: #eee;
+}
+
+.title {
+    font-size: 3em;
+    color: #333;
+}
+
+.subtitle {
+    font-size: 2em;
+    color: #444;
+}
+
+.navbar a {
+    color: #eee;
+    text-decoration: none;
+    border-bottom: 1px solid #aaa;
+}
+
+.footer {
+    border-top: 1px solid #eee;
+    color: #666;
+}
+
+.pull-right {
+    float:right;
+}
+
+.servery-image {
+    width: 200px;
+    height: 200px;
+    float: left;
+    margin: 0 5px 5px 0;
+    background: #eee;
+    background-size: cover;
+    background-position: center;
+}
+
+.servery-image a {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.servery-image div {
+    text-align: center;
+    font-size: 2em;
+    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+}
+
+.servery-image:nth-child(3n) {
+    margin-right: 0;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.baker {
+    background-image: url('img/baker.jpg');
+}
+
+.north {
+    background-image: url('img/north.jpg');
+}
+
+.east {
+    background-image: url('img/east.jpg');
+}
+
+.south {
+    background-image: url('img/south.jpg');
+}
+
+.west {
+    background-image: url('img/west.jpg');
+}
+
+.sid {
+    background-image: url('img/sid.jpg');
+}
