@@ -38,5 +38,17 @@ def before_request():
 def teardown_request(exception):
     g.db.close()
 
+### VIEW STUFF
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # TODO CAS...
+    pass
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out')
+    return redirect(url_for('index'))
+
 if __name__ == "__main__":
     app.run(debug=True)
