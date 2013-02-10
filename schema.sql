@@ -1,5 +1,5 @@
-drop table if exists menu_item;
-create table menu_item (
+drop table if exists menu_items;
+create table menu_items (
   id integer primary key autoincrement,
   name string not null,
   date integer not null,
@@ -20,17 +20,15 @@ create table serveries (
   id integer primary key autoincrement,
   name string not null
 );
+insert into serveries(name) values ('North');
+insert into serveries(name) values ('South');
+insert into serveries(name) values ('East');
+insert into serveries(name) values ('West');
+insert into serveries(name) values ('Sid Rich');
+insert into serveries(name) values ('Baker');
 
-insert into serveries(name) values ('north');
-insert into serveries(name) values ('south');
-insert into serveries(name) values ('east');
-insert into serveries(name) values ('west');
-insert into serveries(name) values ('sidrich');
-insert into serveries(name) values ('baker');
-
+/* TODO: Is there another way to select super-users? */
 drop table if exists admins;
 create table admins(net_id string primary key);
-
 insert into admins values ('nfa1');
-
-
+insert into admins values ('apc1');
