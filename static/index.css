@@ -59,6 +59,36 @@ p {
     color: #666;
 }
 
+.splash {
+    position: fixed;
+    top: 60px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: #fff url('/static/img/salad.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.center {
+    text-align: center;
+}
+
+.huge-title {
+    font-size: 6em;
+    margin-top: 300px;
+    color: #222;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.huge-almost-title {
+    font-size: 2em;
+    padding: 20px;
+    color: #333;
+    background: rgba(255, 255, 255, 0.7);
+}
+
 .footer {
     border-top: 1px solid #eee;
     color: #666;
