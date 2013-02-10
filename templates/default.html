@@ -11,7 +11,12 @@
             <a href='/'>Rice Foodback</a>
 
             <div class='pull-right'>
-                <a href='#'>Login</a>
+              {% if not session.net_id %}
+                <a href='{{url_for('login')}}'>Login</a>
+              {% else %}
+                Welcome, {{ session.net_id }} |
+                <a href='{{url_for('logout')}}'>Log Out</a>
+              {% endif %}
             </div>
         </div>
     </div>

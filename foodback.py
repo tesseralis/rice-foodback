@@ -1,4 +1,5 @@
 from __future__ import with_statement
+import urllib
 from contextlib import closing
 
 import sqlite3
@@ -10,8 +11,11 @@ import pycas
 # TODO Put in separate file, production/development configs, etc.
 DATABASE = '/tmp/foodback.db'
 DEBUG = True
+SECRET_KEY = "This is a very secret key. No one must know!"
+
 CAS_SERVER = "https://netid.rice.edu"
-SERVICE_URL = "http://localhost:5000/login"
+# TODO url_for
+SERVICE_URL = "http://localhost:5000"
 
 # Create application
 app = Flask(__name__)
@@ -19,6 +23,9 @@ app.config.from_object(__name__)
 
 @app.route("/")
 def index():
+    # Authentication
+    if 'ticket' in request.args:
+        validate(request.args['ticket'])
     title = "Rice Foodback"
     cur = g.db.execute('select name from serveries order by id')
     entries = [dict(title=row[0]) for row in cur.fetchall()]
@@ -59,17 +66,26 @@ def teardown_request(exception):
 ### VIEW STUFF
 @app.route('/login')
 def login():
-    return redirect('https://netid.rice.edu/cas/login?service=http://localhost:5000/authenticate')
+    return redirect("{CAS_SERVER}/cas/login?service={SERVICE_URL}".format(**app.config) )
 
-@app.route('/authenticate')
-def authenticate():
-    return "false"
+def validate(ticket):
+    cas_validate = "{CAS_SERVER}/cas/validate?ticket={ticket}&service={SERVICE_URL}".format(ticket=ticket, **app.config)
+    f = urllib.urlopen(cas_validate)
+    response = f.readline()
+    if response == "no\n":
+        # TODO: Don't know if it works because of bad session
+        flash('Unable to log in.')
+    else:
+        session['net_id'] = f.readline().strip()
+    f.close()
+    # TODO I should probably return something or make this functional...
 
 @app.route('/logout')
 def logout():
-    session.pop('logged_in', None)
+    session.pop('net_id', None)
+    cas_logout = "{CAS_SERVER}/cas/logout?service={SERVICE_URL}".format(**app.config)
     flash('You were logged out')
-    return redirect(url_for('index'))
+    return redirect(cas_logout)
 
 if __name__ == "__main__":
     app.run(debug=True)
