@@ -3,7 +3,6 @@ create table menu_items (
   id integer primary key autoincrement,
   name string not null,
   date integer not null,
-  name string not null,
   servery_id int not null
 );
 
@@ -12,7 +11,7 @@ create table reviews (
   menu_item_id int not null,
   net_id string not null,
   rating integer not null,
-  (menu_item, net_id) primary key
+  primary key (menu_item_id, net_id)
 );
 
 drop table if exists serveries;
