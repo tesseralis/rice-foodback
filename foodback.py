@@ -43,7 +43,18 @@ def teardown_request(exception):
 def index():
     # Authentication
     if 'ticket' in request.args:
-        validate(request.args['ticket'])
+        net_id = get_net_id(request.args['ticket'])
+        if net_id:
+            # TODO Login instead
+            session['net_id'] = net_id
+            return redirect('serveries')
+        else:
+            flash("Unable to log in.")
+    return render_template('index.html')
+
+
+@app.route("/serveries")
+def serveries():
     title = "Rice Foodback"
     cur = g.db.execute('select name from serveries order by id')
     entries = [dict(title=row[0]) for row in cur.fetchall()]
@@ -67,17 +78,13 @@ def ratings(servery):
 def login():
     return redirect("{CAS_SERVER}/cas/login?service={SERVICE_URL}".format(**app.config) )
 
-def validate(ticket):
+def get_net_id(ticket):
     cas_validate = "{CAS_SERVER}/cas/validate?ticket={ticket}&service={SERVICE_URL}".format(ticket=ticket, **app.config)
     f = urllib.urlopen(cas_validate)
     response = f.readline()
-    if response == "no\n":
-        # TODO: Don't know if it works because of bad session
-        flash('Unable to log in.')
-    else:
-        session['net_id'] = f.readline().strip()
+    net_id = None if response == "no\n" else f.readline().strip()
     f.close()
-    # TODO I should probably return something or make this functional...
+    return net_id
 
 @app.route('/logout')
 def logout():
