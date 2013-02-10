@@ -18,7 +18,8 @@ app.config.from_object(__name__)
 def index():
     cur = g.db.execute('select name from serveries order by id')
     entries = [dict(title=row[0]) for row in cur.fetchall()]
-    return render_template('index.html', entries=entries)
+    content = render_template('index.html', entries=entries)
+    return render_template('default.html', content=content)
 
 ### DATABASE STUFF
 def connect_db():
