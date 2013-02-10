@@ -21,6 +21,25 @@ SERVICE_URL = "http://localhost:5000"
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+### DATABASE STUFF
+def connect_db():
+    return sqlite3.connect(app.config['DATABASE'])
+
+def init_db():
+    with closing(connect_db()) as db:
+        with app.open_resource('schema.sql') as f:
+            db.cursor().executescript(f.read())
+            db.commit()
+
+@app.before_request
+def before_request():
+    g.db = connect_db()
+
+@app.teardown_request
+def teardown_request(exception):
+    g.db.close()
+
+### VIEW STUFF
 @app.route("/")
 def index():
     # Authentication
@@ -45,25 +64,6 @@ def ratings(servery):
     servery = servery.title()
     return render_template('ratings.html', servery=servery)
 
-### DATABASE STUFF
-def connect_db():
-    return sqlite3.connect(app.config['DATABASE'])
-
-def init_db():
-    with closing(connect_db()) as db:
-        with app.open_resource('schema.sql') as f:
-            db.cursor().executescript(f.read())
-            db.commit()
-
-@app.before_request
-def before_request():
-    g.db = connect_db()
-
-@app.teardown_request
-def teardown_request(exception):
-    g.db.close()
-
-### VIEW STUFF
 @app.route('/login')
 def login():
     return redirect("{CAS_SERVER}/cas/login?service={SERVICE_URL}".format(**app.config) )
