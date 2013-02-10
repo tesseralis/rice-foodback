@@ -22,7 +22,8 @@ def index():
     title = "Rice Foodback"
     cur = g.db.execute('select name from serveries order by id')
     entries = [dict(title=row[0]) for row in cur.fetchall()]
-    return render_template('index.html', title=title, entries=entries)
+    content = render_template('index.html', title=title, entries=entries)
+    return render_template('default.html', content=content)
 
 ### DATABASE STUFF
 def connect_db():
