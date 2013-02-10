@@ -9,6 +9,8 @@ from flask import (Flask, request, session, g, redirect, url_for, abort,
 # TODO Put in separate file, production/development configs, etc.
 DATABASE = '/tmp/foodback.db'
 DEBUG = True
+CAS_SERVER = "https://netid.rice.edu"
+SERVICE_URL = "https://localhost:5000"
 
 # Create application
 app = Flask(__name__)
@@ -16,6 +18,7 @@ app.config.from_object(__name__)
 
 @app.route("/")
 def index():
+    title = "Rice Foodback"
     cur = g.db.execute('select name from serveries order by id')
     entries = [dict(title=row[0]) for row in cur.fetchall()]
     return  render_template('index.html', entries=entries)
