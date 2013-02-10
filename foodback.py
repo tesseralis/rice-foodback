@@ -4,13 +4,14 @@ from contextlib import closing
 import sqlite3
 from flask import (Flask, request, session, g, redirect, url_for, abort,
         render_template, flash)
+import pycas
 
 # configuration
 # TODO Put in separate file, production/development configs, etc.
 DATABASE = '/tmp/foodback.db'
 DEBUG = True
 CAS_SERVER = "https://netid.rice.edu"
-SERVICE_URL = "https://localhost:5000"
+SERVICE_URL = "http://localhost:5000/login"
 
 # Create application
 app = Flask(__name__)
@@ -56,10 +57,13 @@ def teardown_request(exception):
     g.db.close()
 
 ### VIEW STUFF
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login')
 def login():
-    # TODO CAS...
-    pass
+    return redirect('https://netid.rice.edu/cas/login?service=http://localhost:5000/authenticate')
+
+@app.route('/authenticate')
+def authenticate():
+    return "false"
 
 @app.route('/logout')
 def logout():
