@@ -1,4 +1,5 @@
 from __future__ import with_statement
+import urllib
 from contextlib import closing
 
 import sqlite3
@@ -11,7 +12,8 @@ import pycas
 DATABASE = '/tmp/foodback.db'
 DEBUG = True
 CAS_SERVER = "https://netid.rice.edu"
-SERVICE_URL = "http://localhost:5000/login"
+# TODO url_for
+SERVICE_URL = "http://localhost:5000/validate"
 
 # Create application
 app = Flask(__name__)
@@ -59,11 +61,21 @@ def teardown_request(exception):
 ### VIEW STUFF
 @app.route('/login')
 def login():
-    return redirect('https://netid.rice.edu/cas/login?service=http://localhost:5000/authenticate')
+    return redirect("{CAS_SERVER}/cas/login?service={SERVICE_URL}".format(**app.config) )
 
-@app.route('/authenticate')
-def authenticate():
-    return "false"
+@app.route('/validate')
+def validate():
+    ticket = request.args['ticket']
+    cas_validate = "{CAS_SERVER}/cas/validate?ticket={ticket}&service={SERVICE_URL}".format(ticket=ticket, **app.config)
+    f = urllib.urlopen(cas_validate)
+    response = f.readline()
+    if response == "no\n":
+        f.close()
+        return redirect(url_for('index'))
+    else:
+        id = f.readline().strip()
+        f.close()
+        return id
 
 @app.route('/logout')
 def logout():
