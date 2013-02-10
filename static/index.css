@@ -1,6 +1,6 @@
 body {
     background: #fff;
-    font-family: "Ledger", "Georgia", serif;
+    font-family: "Gentium Book Basic", "Georgia", serif;
     font-size: 16px;
     padding-top: 100px;
 }
@@ -9,6 +9,11 @@ a {
     color: #333;
     border-bottom: 1px solid #aaa;
     text-decoration: none;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5em;
 }
 
 .container {
@@ -26,10 +31,17 @@ a {
     top: 0;
     left: 0;
     right: 0;
-    height: 40px;
-    line-height: 40px;
+    height: 60px;
+    line-height: 60px;
     background: #333;
     color: #eee;
+    font-size: 20px;
+}
+
+.navbar a {
+    color: #eee;
+    text-decoration: none;
+    border-bottom: 1px solid #aaa;
 }
 
 .title {
@@ -40,12 +52,6 @@ a {
 .subtitle {
     font-size: 2em;
     color: #666;
-}
-
-.navbar a {
-    color: #eee;
-    text-decoration: none;
-    border-bottom: 1px solid #aaa;
 }
 
 .footer {
@@ -72,6 +78,10 @@ a {
     width: 100%;
     display: inline-block;
     text-decoration: none;
+}
+
+.servery-image a:hover {
+    background: rgba(100, 100, 100, 0.1);
 }
 
 .servery-image div {

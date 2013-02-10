@@ -22,8 +22,21 @@ def index():
     title = "Rice Foodback"
     cur = g.db.execute('select name from serveries order by id')
     entries = [dict(title=row[0]) for row in cur.fetchall()]
-    content = render_template('index.html', title=title, entries=entries)
-    return render_template('default.html', content=content)
+    return  render_template('index.html', entries=entries)
+
+@app.route("/student")
+def student():
+    return render_template('student.html')
+
+@app.route("/chef")
+def chef():
+    return render_template('chef.html')
+
+@app.route("/ratings/<servery>")
+def ratings(servery):
+    # TODO: translate urls into valid serverys and invalid serverys
+    servery = servery.title()
+    return render_template('ratings.html', servery=servery)
 
 ### DATABASE STUFF
 def connect_db():
