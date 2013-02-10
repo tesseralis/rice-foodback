@@ -21,6 +21,11 @@ p {
     margin: auto;
 }
 
+.container-larger {
+    max-width: 1000px;
+    margin: auto;
+}
+
 .sectional {
     margin-top: 30px;
     padding-top: 30px;
@@ -134,8 +139,14 @@ p {
     border-top: 1px solid #ccc;
 }
 
-.table tr:nth-child(2n + 1) {
-    background: #eee;
+.table-header {
+    color: #333;
+    font-weight: bold;
+}
+
+.table td:nth-of-type(odd),
+.table th:nth-of-type(odd){
+    background:rgba(100, 100, 100, 0.1);
 }
 
 .vegan {
@@ -146,8 +157,6 @@ p {
     background: rgba(100, 100, 200, 0.3);
 }
 
-.table-header {
-    background: rgba(100, 100, 100, 0.2);
-    color: #333;
-    font-weight: bold;
+.table-day {
+    width: 14.5%;
 }
