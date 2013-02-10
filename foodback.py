@@ -18,29 +18,21 @@ app.config.from_object(__name__)
 def index():
     cur = g.db.execute('select name from serveries order by id')
     entries = [dict(title=row[0]) for row in cur.fetchall()]
-    # TODO: do this right
-    content = render_template('index.html', entries=entries)
-    return render_template('default.html', content=content)
+    return  render_template('index.html', entries=entries)
 
 @app.route("/student")
 def student():
-    # TODO: do this right
-    content = render_template('student.html')
-    return render_template('default.html', content=content)
+    return render_template('student.html')
 
 @app.route("/chef")
 def chef():
-    # TODO: do this right
-    content = render_template('chef.html')
-    return render_template('default.html', content=content)
+    return render_template('chef.html')
 
 @app.route("/ratings/<servery>")
 def ratings(servery):
     # TODO: translate urls into valid serverys and invalid serverys
     servery = servery.title()
-    # TODO: do this right
-    content = render_template('ratings.html', servery=servery)
-    return render_template('default.html', content=content)
+    return render_template('ratings.html', servery=servery)
 
 ### DATABASE STUFF
 def connect_db():
