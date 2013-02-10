@@ -11,6 +11,8 @@ import pycas
 # TODO Put in separate file, production/development configs, etc.
 DATABASE = '/tmp/foodback.db'
 DEBUG = True
+SECRET_KEY = "This is a very secret key. No one must know!"
+
 CAS_SERVER = "https://netid.rice.edu"
 # TODO url_for
 SERVICE_URL = "http://localhost:5000/validate"
@@ -70,16 +72,15 @@ def validate():
     f = urllib.urlopen(cas_validate)
     response = f.readline()
     if response == "no\n":
-        f.close()
-        return redirect(url_for('index'))
+        flash('Unable to log in.')
     else:
-        id = f.readline().strip()
-        f.close()
-        return id
+        session['net_id'] = f.readline().strip()
+    f.close()
+    return redirect(url_for('index'))
 
 @app.route('/logout')
 def logout():
-    session.pop('logged_in', None)
+    session.pop('net_id', None)
     flash('You were logged out')
     return redirect(url_for('index'))
 
