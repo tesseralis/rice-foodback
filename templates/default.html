@@ -14,7 +14,7 @@
               {% if not session.net_id %}
                 <a href='{{url_for('login')}}'>Login</a>
               {% else %}
-                Welcome, {{ session.net_id }} |
+                Welcome, {{ session.net_id }} &middot;
                 <a href='{{url_for('logout')}}'>Log Out</a>
               {% endif %}
             </div>
